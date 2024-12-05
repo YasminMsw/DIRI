@@ -4,7 +4,10 @@
   padding: 2rem;
   text-align: center;
 }
-
+.notificationsFrame{
+  background-color: #242424;
+  color: white;
+}
 .logo {
   height: 6em;
   padding: 1.5em;
