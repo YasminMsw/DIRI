@@ -1,0 +1,47 @@
+.enrolList {
+    margin-top: 20px;
+    width: 80%;
+    margin-left:300px;
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+  }
+  
+  .enrolList table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .enrolList th {
+    background-color: #f2f2f2;
+    padding: 10px;
+    font-size: 16px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .enrolList td {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .enrolList tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .enrolList .actions {
+    text-align: center;
+  }
+  
+  .enrolList .actions svg {
+    cursor: pointer;
+    font-size: 18px;
+    margin-right: 10px;
+  }
+  
+  .enrolList .actions svg:last-child {
+    margin-right: 0;
+  }
+  
