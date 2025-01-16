@@ -1,0 +1,38 @@
+.foodOrder {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    text-align: center;
+  }
+  
+  .submitOrderButton,
+  .returnButton {
+    display: block;
+    margin: 10px auto;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+  }
+  
+  .submitOrderButton {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .returnButton {
+    background-color: #ccc;
+    color: black;
+  }
+  
+  .confirmationMessage {
+    margin-top: 15px;
+    font-size: 14px;
+    color: #4caf50;
+    font-weight: bold;
+  }
+  
