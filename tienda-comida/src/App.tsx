@@ -47,7 +47,6 @@ function App() {
 
   const handleFoodSelect = (food: MenuItem) => {
     setSelectedFood(food);
-    console.log("HOla");
     console.log(selectedFood);
   };
   const handleQuantityUpdate = (id: number, orderedQuantity: number) => {
