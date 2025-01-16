@@ -1,12 +1,13 @@
-import { useState } from "react";
+import React, { Suspense, useState } from "react";
 import { MenuItem } from "./entities/entities";
-import Foods from "./components/Food";
-import './App.css'
+import "./App.css";
 import FoodOrder from "./components/FoodOrder/FoodOrder";
+
+const Foods = React.lazy(() => import("./components/Food"));
 
 function App() {
   const [selectedFood, setSelectedFood] = useState<MenuItem | null>(null); // Estado para el producto seleccionado
-  
+  const [showForm, setShowForm] = useState(false);
   const [isChooseFoodPage, setIsChooseFoodPage] = useState(false);
   const [menuItems, setMenuItems] = useState<MenuItem[]>([
     {
@@ -45,16 +46,26 @@ function App() {
 
   const handleFoodSelect = (food: MenuItem) => {
     setSelectedFood(food);
-    console.log(food)
+    console.log("HOla");
+    console.log(selectedFood);
   };
-  const handleQuantityUpdate = (id: number, quantity: number) => {
+  const handleQuantityUpdate = (id: number, orderedQuantity: number) => {
     setMenuItems((prevItems) =>
       prevItems.map((item) =>
-        item.id === id ? { ...item, quantity } : item
+        item.id === id
+          ? {
+              ...item,
+              quantity: Math.max(0, item.quantity - orderedQuantity), // Resta y asegura que no sea negativo
+            }
+          : item
       )
     );
   };
-  
+  const handleReturnToMenu = () => {
+    setSelectedFood(null);
+    setIsChooseFoodPage(false)
+    setShowForm(false);
+  };
   return (
     <div className="App">
       <button
@@ -70,7 +81,7 @@ function App() {
           <ul className="ulApp">
             {menuItems.map((item) => {
               return (
-                <li key={item.id} className="liApp" >
+                <li key={item.id} className="liApp">
                   <p>{item.name}</p>
                   <p>#{item.quantity}</p>
                 </li>
@@ -79,9 +90,17 @@ function App() {
           </ul>
         </>
       )}
-      {isChooseFoodPage && <Foods foodItems={menuItems}></Foods>}
 
-      {selectedFood && (
+      {isChooseFoodPage && !selectedFood && (
+        <Suspense fallback={<p>Cargando menú...</p>}>
+          <Foods
+            foodItems={menuItems}
+            onFoodSelected={(food) => handleFoodSelect(food)}
+          />
+        </Suspense>
+      )}
+
+      {isChooseFoodPage && selectedFood && (
         <FoodOrder
           food={selectedFood}
           onQuantityUpdated={handleQuantityUpdate}

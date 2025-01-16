@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { MenuItem } from "../entities/entities";
+import FoodOrder from "./FoodOrder/FoodOrder";
 
 interface FoodsProps {
   foodItems: MenuItem[];
+  onFoodSelected: (food: MenuItem) => void;
 }
 function Foods(props: FoodsProps) {
       const [selectedFood, setSelectedFood] = useState<MenuItem | null>(null); // Estado para el producto seleccionado
     
     const handleFoodSelect = (food: MenuItem) => {
         setSelectedFood(food);
-        console.log(food)
+        props.onFoodSelected(food)
       };
   return (
     <>

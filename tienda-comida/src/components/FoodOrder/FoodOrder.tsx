@@ -16,14 +16,17 @@ function FoodOrder(props: FoodOrderProps) {
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const updatedQuantity = parseInt(event.target.value) || 1;
     setQuantity(updatedQuantity);
-    props.onQuantityUpdated(props.food.id, updatedQuantity);
+    // props.onQuantityUpdated(props.food.id, updatedQuantity);
   };
   const handleOrderSubmit = () => {
+    props.onQuantityUpdated(props.food.id, quantity);
     setShowConfirmation(true); // Muestra el mensaje de confirmación
   };
   return (
     <div className="foodOrder">
-      <h3>Ordenar: {props.food.name}</h3>
+      <h1>{props.food.name}</h1>
+      <img src={`/images/${props.food.image}`} style={{ width: '500px', height: 'auto', borderRadius: '8px' }}/>
+
       <p>{props.food.desc}</p>
       <p>Precio unitario: {props.food.price}€</p>
 
