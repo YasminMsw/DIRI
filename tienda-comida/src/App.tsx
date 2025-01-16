@@ -4,6 +4,7 @@ import "./App.css";
 import FoodOrder from "./components/FoodOrder/FoodOrder";
 
 const Foods = React.lazy(() => import("./components/Food"));
+export const foodItemsContext = React.createContext<MenuItem[]>([]);
 
 function App() {
   const [selectedFood, setSelectedFood] = useState<MenuItem | null>(null); // Estado para el producto seleccionado
@@ -67,6 +68,8 @@ function App() {
     setShowForm(false);
   };
   return (
+    <foodItemsContext.Provider value={menuItems}>
+
     <div className="App">
       <button
         className="toggleButton"
@@ -103,11 +106,12 @@ function App() {
       {isChooseFoodPage && selectedFood && (
         <FoodOrder
           food={selectedFood}
-          onQuantityUpdated={handleQuantityUpdate}
+         // onQuantityUpdated={handleQuantityUpdate}
           onReturnToMenu={handleReturnToMenu}
         />
       )}
     </div>
+    </foodItemsContext.Provider>
   );
 }
 export default App;
