@@ -1,5 +1,5 @@
-import { db } from "../fireBaseConfig";
 import { collection, addDoc } from "firebase/firestore";
+import { db } from "../firebaseConfig";
 
 export const addOrder = async (orderData: any) => {
   try {

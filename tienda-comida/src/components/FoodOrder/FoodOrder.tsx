@@ -4,6 +4,10 @@ import './FoodOrder.css'
 import { foodItemsContext } from "../../App";
 import logger from '../../servicios/loggings';
 import { addOrder } from "../../servicios/firebaseService";
+import { useDispatch,useSelector} from "react-redux";
+import { addOrderAsync } from "../../redux/orderSlice";
+import { RootState } from "../../redux/store";
+import { AppDispatch } from "../../redux/store";
 
 
 
@@ -13,6 +17,9 @@ interface FoodOrderProps {
   onReturnToMenu: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 function FoodOrder(props: FoodOrderProps) {
+  const dispatch = useDispatch<AppDispatch>();
+  const { loading, error } = useSelector((state: RootState) => state.order);
+
   const [quantity, setQuantity] = useState(1); // Estado para la cantidad seleccionada
   const [showConfirmation, setShowConfirmation] = useState(false); // Estado para mostrar el mensaje de confirmación
   const [isOrdered, setIsOrdered] = useState(false); // si está pedido
@@ -39,19 +46,10 @@ function FoodOrder(props: FoodOrderProps) {
       date: new Date().toISOString(), // Guarda la fecha del pedido
     };
     console.log("hola")
-  //guardar el pedido en firebase
-    try {
-      await addOrder(orderData);
-      console.log(`Pedido enviado a Firebase`,orderData);
-      logger.info(`Pedido enviado a Firebase`);
-    } catch (error) {
-      console.error("Error al guardar el pedido en Firebase",error);
-      logger.error("Error al guardar el pedido en Firebase");
-    }
+    //guardar el pedido en firebase
+    dispatch(addOrderAsync(orderData));
 
-
-
-
+  
   };
   const menuItems: MenuItem[] = useContext(foodItemsContext);
   const handleClick = () => {
@@ -98,6 +96,8 @@ function FoodOrder(props: FoodOrderProps) {
       <button onClick={props.onReturnToMenu} className="returnButton">
         Volver al Menú
       </button>
+      {loading && <p>Guardando pedido...</p>}
+      {error && <p style={{ color: "red" }}>{error}</p>}  
     </div>
   );
 }
