@@ -2,6 +2,8 @@ import React, { Suspense, useState } from "react";
 import { MenuItem } from "./entities/entities";
 import "./App.css";
 import FoodOrder from "./components/FoodOrder/FoodOrder";
+import ErrorBoundary from "./components/ErrorBoundary"; 
+import ProblematicComponent from "./components/ProblematicComponent";
 
 const Foods = React.lazy(() => import("./components/Food"));
 export const foodItemsContext = React.createContext<MenuItem[]>([]);
@@ -67,6 +69,8 @@ function App() {
     setShowForm(false);
   };
   return (
+    <ErrorBoundary fallback={<h2 style={{ color: "red" }}>¡Algo salió mal en la aplicación!</h2>}>
+
     <foodItemsContext.Provider value={menuItems}>
 
     <div className="App">
@@ -111,6 +115,14 @@ function App() {
       )}
     </div>
     </foodItemsContext.Provider>
+    </ErrorBoundary>
   );
+
+  // return (
+  //   <ErrorBoundary fallback={<h2 style={{ color: "red" }}>¡Algo salió mal en la aplicación!</h2>}>
+  //     <ProblematicComponent />
+  //   </ErrorBoundary>
+  // );
+
 }
 export default App;
