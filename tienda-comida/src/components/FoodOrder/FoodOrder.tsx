@@ -2,6 +2,10 @@ import React, { MouseEventHandler, useContext, useState } from "react";
 import { MenuItem } from "../../entities/entities";
 import './FoodOrder.css'
 import { foodItemsContext } from "../../App";
+import logger from '../../servicios/loggings';
+import { addOrder } from "../../servicios/firebaseService";
+
+
 
 interface FoodOrderProps {
   food: MenuItem;
@@ -16,14 +20,38 @@ function FoodOrder(props: FoodOrderProps) {
   const totalPrice = quantity * props.food.price;
 
   const handleQuantityChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    logger.debug("Empezando el cambio de la cantidad");
     const updatedQuantity = parseInt(event.target.value) || 1;
     setQuantity(updatedQuantity);
     // props.onQuantityUpdated(props.food.id, updatedQuantity);
+    logger.info("Cantidad cambiada!")
   };
-  const handleOrderSubmit = () => {
+  const handleOrderSubmit = async() => {
    // props.onQuantityUpdated(props.food.id, quantity);
-    handleClick()
+    handleClick();
+    console.log("hola");
+
     setShowConfirmation(true); // Muestra el mensaje de confirmación
+    const orderData = {
+      name: props.food.name,
+      quantity: quantity,
+      price: totalPrice,
+      date: new Date().toISOString(), // Guarda la fecha del pedido
+    };
+    console.log("hola")
+  //guardar el pedido en firebase
+    try {
+      await addOrder(orderData);
+      console.log(`Pedido enviado a Firebase`,orderData);
+      logger.info(`Pedido enviado a Firebase`);
+    } catch (error) {
+      console.error("Error al guardar el pedido en Firebase",error);
+      logger.error("Error al guardar el pedido en Firebase");
+    }
+
+
+
+
   };
   const menuItems: MenuItem[] = useContext(foodItemsContext);
   const handleClick = () => {
