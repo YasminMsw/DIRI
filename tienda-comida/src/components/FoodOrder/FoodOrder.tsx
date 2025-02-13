@@ -8,6 +8,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { addOrderAsync } from "../../redux/orderSlice";
 import { RootState } from "../../redux/store";
 import { AppDispatch } from "../../redux/store";
+import { useAuth } from "../../contexts/AuthContext";
+import { Role } from "../../servicios/IAuthService";
 
 interface FoodOrderProps {
   food: MenuItem;
@@ -15,6 +17,9 @@ interface FoodOrderProps {
   onReturnToMenu: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 function FoodOrder(props: FoodOrderProps) {
+
+  const { user } = useAuth();
+ 
   const dispatch = useDispatch<AppDispatch>();
   const { loading, error } = useSelector((state: RootState) => state.order);
   // const [loading, setLoading] = useState(false);
@@ -91,9 +96,13 @@ function FoodOrder(props: FoodOrderProps) {
       <p>Total: {totalPrice}€</p>
 
       {/* Botón para enviar el pedido */}
-      <button onClick={handleOrderSubmit} className="submitOrderButton">
-        {loading ? "Guardando..." : "Enviar Pedido"}
-      </button>
+      {!user ? (
+        <p style={{ color: "red" }}>Debes iniciar sesión para hacer un pedido.</p>
+      ) : (
+        <button onClick={handleOrderSubmit} className="submitOrderButton">
+          {loading ? "Guardando..." : "Enviar Pedido"}
+        </button>
+      )}
 
       {/* Mensaje de confirmación */}
       {showConfirmation && (

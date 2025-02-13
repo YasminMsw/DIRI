@@ -9,8 +9,7 @@ interface FoodsProps {
   onFoodSelected: (food: MenuItem) => void;
 }
 function Foods(props: FoodsProps) {
-  const { roles } = useAuth();
-  const isAdmin = roles?.includes(Role.ADMIN);
+  
 
   const [selectedFood, setSelectedFood] = useState<MenuItem | null>(null); // Estado para el producto seleccionado
 

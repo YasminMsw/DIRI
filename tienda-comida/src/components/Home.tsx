@@ -13,6 +13,8 @@ export const foodItemsContext = React.createContext<MenuItem[]>([]);
 function Home() {
   const { roles } = useAuth();
     const isAdmin = roles?.includes(Role.ADMIN);
+    console.log(roles)
+    console.log(isAdmin)
   const [selectedFood, setSelectedFood] = useState<MenuItem | null>(null); // Estado para el producto seleccionado
   const [showForm, setShowForm] = useState(false);
   const [isChooseFoodPage, setIsChooseFoodPage] = useState(false);
