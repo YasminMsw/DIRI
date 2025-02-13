@@ -1,4 +1,4 @@
-import React, { createContext, useEffect, useState, ReactNode } from "react";
+import React, { createContext, useEffect, useState, ReactNode, useContext } from "react";
 import { authService } from "../servicios/AuthService";
 import { Role } from "../servicios/IAuthService";
 interface AuthContextProps {
@@ -38,3 +38,4 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     </AuthContext.Provider>
   );
 };
+export const useAuth = () => useContext(AuthContext);

@@ -4,11 +4,15 @@ import "../App.css";
 import FoodOrder from "./FoodOrder/FoodOrder";
 import ErrorBoundary from "./ErrorBoundary"; 
 import ProblematicComponent from "./ProblematicComponent";
+import { useAuth } from "../contexts/AuthContext";
+import { Role } from "../servicios/IAuthService";
 
 const Foods = React.lazy(() => import("./Food"));
 export const foodItemsContext = React.createContext<MenuItem[]>([]);
 
 function Home() {
+  const { roles } = useAuth();
+    const isAdmin = roles?.includes(Role.ADMIN);
   const [selectedFood, setSelectedFood] = useState<MenuItem | null>(null); // Estado para el producto seleccionado
   const [showForm, setShowForm] = useState(false);
   const [isChooseFoodPage, setIsChooseFoodPage] = useState(false);
@@ -89,7 +93,7 @@ function Home() {
               return (
                 <li key={item.id} className="liApp">
                   <p>{item.name}</p>
-                  <p>#{item.quantity}</p>
+                  {isAdmin && <p>#{item.quantity}</p>}
                 </li>
               );
             })}

@@ -1,12 +1,17 @@
 import { useState } from "react";
 import { MenuItem } from "../entities/entities";
 import FoodOrder from "./FoodOrder/FoodOrder";
+import { useAuth } from "../contexts/AuthContext";
+import { Role } from "../servicios/IAuthService";
 
 interface FoodsProps {
   foodItems: MenuItem[];
   onFoodSelected: (food: MenuItem) => void;
 }
 function Foods(props: FoodsProps) {
+  const { roles } = useAuth();
+  const isAdmin = roles?.includes(Role.ADMIN);
+
   const [selectedFood, setSelectedFood] = useState<MenuItem | null>(null); // Estado para el producto seleccionado
 
   const handleFoodSelect = (food: MenuItem) => {
@@ -24,12 +29,12 @@ function Foods(props: FoodsProps) {
               className="liFoods"
               onClick={() => handleFoodSelect(item)}
             >
-             <img
-  className="foodImg"
-  src={`/images/${item.image}`}
-  alt={`Imagen de ${item.name}`}
-  data-testid={`food-image-${item.id}`}
-/>
+              <img
+                className="foodImg"
+                src={`/images/${item.image}`}
+                alt={`Imagen de ${item.name}`}
+                data-testid={`food-image-${item.id}`}
+              />
               <div className="foodItem">
                 <p className="foodDesc">{item.desc}</p>
                 <p className="foodPrice">{item.price}$</p>
