@@ -72,35 +72,62 @@ function EnrolmentForm(props: EnrolmentFormProps) {
   )
 
   return (
-    <div>
-      <form className="enrolForm" onSubmit={handleSubmit}>
-        <h1><FormattedMessage id="app.label.titulo2"/> - {props.chosenProgram}</h1>
-        <label>
-          <FormattedMessage id="app.label.nombre"/>:
-          </label>
-        <input
-          type="text"
-          name="fname"
-          ref={nameInputRef}
-          onChange={(event) => setFirstName(event.target.value)}
-          value={firstName}
-        />
-        <label><FormattedMessage id="app.label.apellidos"/>:</label>
-        <input
-          type="text"
-          name="lname"
-          onChange={(event) => setLastName(event.target.value)}
-          value={lastName}
-        />
-      <input type="submit"   value={getValueInput()}
-      />
-      <input type="submit" value={intl.formatMessage({ id: "app.label.cancelar" })}
-      />
-      <label id="studentMsg" className="message">
-          {welcomeMessage}
-        </label>
-      </form>
-    </div>
+    <div className="flex justify-center items-center p-8 bg-gray-100">
+  <form
+    className="bg-white rounded-lg shadow-lg p-6 w-[450px] text-gray-800"
+    onSubmit={handleSubmit}
+  >
+    {/* Título */}
+    <h1 className="text-2xl font-bold text-center mb-5">
+      <FormattedMessage id="app.label.titulo2" /> - {props.chosenProgram}
+    </h1>
+
+    {/* Campo Nombre */}
+    <label className="block text-lg font-medium mb-1">
+      <FormattedMessage id="app.label.nombre" />
+    </label>
+    <input
+      type="text"
+      name="fname"
+      ref={nameInputRef}
+      onChange={(event) => setFirstName(event.target.value)}
+      value={firstName}
+      className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+
+    {/* Campo Apellidos */}
+    <label className="block text-lg font-medium mt-4 mb-1">
+      <FormattedMessage id="app.label.apellidos" />
+    </label>
+    <input
+      type="text"
+      name="lname"
+      onChange={(event) => setLastName(event.target.value)}
+      value={lastName}
+      className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+    />
+
+    {/* Botón Registrar */}
+    <input
+      type="submit"
+      value={getValueInput()}
+      className="w-full bg-blue-600 text-white font-semibold py-3 rounded-lg mt-4 hover:bg-blue-700 transition duration-200"
+    />
+
+    {/* Botón Cancelar */}
+    <input
+      type="submit"
+      value={intl.formatMessage({ id: "app.label.cancelar" })}
+      className="w-full bg-gray-400 text-black font-semibold py-3 rounded-lg mt-2 hover:bg-gray-500 transition duration-200"
+    />
+
+    {/* Mensaje de bienvenida */}
+    <label className="block text-green-600 font-bold text-center mt-4">
+      {welcomeMessage}
+    </label>
+  </form>
+</div>
+
   );
 }
 

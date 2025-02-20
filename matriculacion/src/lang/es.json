@@ -10,6 +10,7 @@
     "app.label.actualizar": "Actualizar",
     "app.label.mensajeBienvenida": "Bienvenido/a",
     "app.label.estudios": "Estudios",
-    "app.label.acciones": "Acciones"
+    "app.label.acciones": "Acciones",
+    "app.languageSelector":"Seleccione el idioma"
 
 }

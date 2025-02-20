@@ -37,19 +37,24 @@ function App() {
   };
   return (
     <div className="App">
-      <div>
-        <label htmlFor="language-select">
+      <div className="flex items-center gap-3 bg-white p-4 rounded-lg shadow-md">
+        {/* Etiqueta del selector */}
+        <label
+          htmlFor="language-select"
+          className="text-lg font-medium text-gray-700"
+        >
           <FormattedMessage
             id="app.languageSelector"
             defaultMessage="Select language:"
           />
         </label>
-        {""}
+
+        {/* Selector de idioma */}
         <select
           id="language-select"
           onChange={(e) => changeLanguage(e.target.value)}
           value={locale}
-          style={{ marginBottom: "20px" }}
+          className="border border-gray-300 bg-gray-100 text-gray-700 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
         >
           <option value="en">English</option>
           <option value="es">Español</option>
