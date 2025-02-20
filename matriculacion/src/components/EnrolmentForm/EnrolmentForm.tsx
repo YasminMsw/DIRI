@@ -1,6 +1,8 @@
 import React, { FormEvent, useEffect, useRef, useState } from "react";
 import { Student } from "../../entities/Studente";
 import './EnrolmentForm.css';
+import { FormattedMessage } from "react-intl";
+import { useIntl } from "react-intl";
 
 // Definición de las props que recibe el componente
 interface EnrolmentFormProps {
@@ -13,12 +15,15 @@ interface EnrolmentFormProps {
 
 function EnrolmentForm(props: EnrolmentFormProps) {
     // Estados locales para manejar los datos del formulario
+
+    const intl = useIntl();
+
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [welcomeMessage, setWelcomeMessage] = useState("");
   const nameInputRef = useRef<HTMLInputElement>(null);
 
-  const [btnTitle, setBtnTitle] = useState("Registar");
+  const [btnTitle, setBtnTitle] = useState("registrar");
   const [editingStudentID, setEditingStudentID] = useState<string>();
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
@@ -26,8 +31,8 @@ function EnrolmentForm(props: EnrolmentFormProps) {
 
   // Si no se presiona "Cancelar", procesar el formulario
  if (!submitter || submitter.value != "Cancelar") {
-    setWelcomeMessage(`Bienvenido/a ${firstName} ${lastName}`);  // Actualiza el mensaje de bienvenida
-    props.onChangeEnrolments(props.currentEnrolments + 1); // Incrementa las matriculaciones
+  setWelcomeMessage(`${intl.formatMessage({ id: "app.label.mensajeBienvenida" })} ${firstName} ${lastName}`);
+  props.onChangeEnrolments(props.currentEnrolments + 1); // Incrementa las matriculaciones
     
     // Crea el objeto student y lo envía al componente padre
     const student: Student = {
@@ -46,7 +51,7 @@ function EnrolmentForm(props: EnrolmentFormProps) {
     setLastName("");
     nameInputRef.current?.focus();// Devuelve el foco al campo de "Nombre"
     event.preventDefault();// Previene el comportamiento predeterminado del formulario
-    setBtnTitle("Registrar");// Cambia el botón de vuelta a "Registrar"
+    setBtnTitle("registrar");// Cambia el botón de vuelta a "Registrar"
 
   };
 
@@ -56,16 +61,23 @@ function EnrolmentForm(props: EnrolmentFormProps) {
    setEditingStudentID(props.editingStudent.id);
     setFirstName(props.editingStudent.firstName);
     setLastName(props.editingStudent.lastName);
-    setBtnTitle("Actualizar");
+    setBtnTitle("actualizar");
     }
     }, [props.editingStudent]);// Ejecutar cada vez que cambie el estudiante en edición
 
+   const getValueInput =(()=>{
+      
+      return intl.formatMessage({ id: `app.label.${btnTitle}` });
+    }
+  )
 
   return (
     <div>
       <form className="enrolForm" onSubmit={handleSubmit}>
-        <h1>Datos del estudiante - {props.chosenProgram}</h1>
-        <label>Nombre:</label>
+        <h1><FormattedMessage id="app.label.titulo2"/> - {props.chosenProgram}</h1>
+        <label>
+          <FormattedMessage id="app.label.nombre"/>:
+          </label>
         <input
           type="text"
           name="fname"
@@ -73,15 +85,17 @@ function EnrolmentForm(props: EnrolmentFormProps) {
           onChange={(event) => setFirstName(event.target.value)}
           value={firstName}
         />
-        <label>Apellidos:</label>
+        <label><FormattedMessage id="app.label.apellidos"/>:</label>
         <input
           type="text"
           name="lname"
           onChange={(event) => setLastName(event.target.value)}
           value={lastName}
         />
-      <input type="submit" value={btnTitle} />
-      <input type="submit" value="Cancelar" />
+      <input type="submit"   value={getValueInput()}
+      />
+      <input type="submit" value={intl.formatMessage({ id: "app.label.cancelar" })}
+      />
       <label id="studentMsg" className="message">
           {welcomeMessage}
         </label>

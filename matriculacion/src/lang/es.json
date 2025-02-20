@@ -1,0 +1,15 @@
+{
+    "app.label.titulo":"Matriculaciones actuales",
+    "app.label.grado":"Grado",
+    "app.label.posgrado":"Posgrado",
+    "app.label.nombre":"Nombre",
+    "app.label.apellidos":"Apellidos",
+    "app.label.registrar":"Registrar",
+    "app.label.cancelar":"Cancelar",
+    "app.label.titulo2":"Datos del estudiante",
+    "app.label.actualizar": "Actualizar",
+    "app.label.mensajeBienvenida": "Bienvenido/a",
+    "app.label.estudios": "Estudios",
+    "app.label.acciones": "Acciones"
+
+}

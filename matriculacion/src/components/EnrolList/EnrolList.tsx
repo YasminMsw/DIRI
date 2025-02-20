@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { DetailsList, IColumn } from "@fluentui/react/lib/DetailsList";
+import { useIntl } from "react-intl";
 
 import { initializeIcons } from "@fluentui/react/lib/Icons";
 import { Student } from "../../entities/Studente";
@@ -27,12 +28,13 @@ interface EnrolListProps {
 
 function EnrolList(props: EnrolListProps) {
   const [items, setItems] = useState<Student[]>([]);
+    const intl = useIntl();
 
     // Configuración de columnas para la lista de FluentUI
   const columns: IColumn[] = [
     {
       key: "fname",
-      name: "Nombre",
+      name: `${intl.formatMessage({ id: "app.label.nombre" })}`,
       fieldName: "firstName",
       minWidth: 90,
       maxWidth: 200,
@@ -40,7 +42,7 @@ function EnrolList(props: EnrolListProps) {
     },
     {
       key: "lname",
-      name: "Apellidos",
+      name: `${intl.formatMessage({ id: "app.label.apellidos" })}`,
       fieldName: "lastName",
       minWidth: 90,
       maxWidth: 200,
@@ -48,7 +50,7 @@ function EnrolList(props: EnrolListProps) {
     },
     {
       key: "program",
-      name: "Estudios",
+      name: `${intl.formatMessage({ id: "app.label.estudios"})}`,
       fieldName: "program",
       minWidth: 60,
       maxWidth: 200,
@@ -56,7 +58,7 @@ function EnrolList(props: EnrolListProps) {
     },
     {
       key: "actions",
-      name: "Acciones",
+      name: `${intl.formatMessage({ id: "app.label.acciones" })}`,
       fieldName: "actions",
       minWidth:30,
       maxWidth: 60,

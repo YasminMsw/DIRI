@@ -1,0 +1,14 @@
+{
+    "app.label.titulo":"Current registrations",
+    "app.label.grado":"Degree",
+    "app.label.posgrado":"Master",
+    "app.label.nombre":"First Name",
+    "app.label.apellidos":"Last name",
+    "app.label.registrar":"Save",
+    "app.label.cancelar":"Cancel",
+    "app.label.titulo2":"Student's data",
+    "app.label.actualizar": "Update",
+    "app.label.mensajeBienvenida": "Welcome",
+    "app.label.estudios": "Program",
+    "app.label.acciones": "Actions"
+}
